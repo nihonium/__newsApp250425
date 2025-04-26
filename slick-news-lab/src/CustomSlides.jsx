@@ -8,7 +8,10 @@ import "slick-carousel/slick/slick-theme.css"
 function CustomSlide(props) {
   const { index, ...otherProps } = props;
   return (
-    <div {...otherProps}>
+    <div
+      className='slider-items'
+      {...otherProps}
+    >
       <h3>{index}</h3>
     </div>
   );
@@ -38,6 +41,20 @@ function CustomSlides() {
     </div>
   );
 }
+
+var url = 'https://newsapi.org/v2/everything?' +
+          'q=Apple&' +
+          'from=2025-04-26&' +
+          'sortBy=popularity&' +
+          'pageSize=6&' +
+          'apiKey=f4ce278dcf6d4c3dbe301e7599c169ae';
+
+var req = new Request(url);
+
+fetch(req)
+    .then(function(response) {
+        console.log(response.json());
+    })
 
 export default CustomSlides;
 

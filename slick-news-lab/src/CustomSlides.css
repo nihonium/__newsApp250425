@@ -10,6 +10,11 @@
 .slider {
   margin-top: 30vh;
 
+  .slick-prev,
+  .slick-next {
+    z-index: 2;
+  }
+
   .slick-prev {
     left: 1%;
   }
@@ -17,4 +22,10 @@
   .slick-next {
     right: 1%;
   }
+}
+
+.slider-items {
+  text-align: center;
+  background-color: aquamarine;
+  padding: 15px;
 }
