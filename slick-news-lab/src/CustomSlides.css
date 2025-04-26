@@ -1,5 +1,5 @@
 @charset "uft-8";
-.simple {
+.slider-container {
   max-width: 1300px;
   padding-left: 10px;
   padding-right: 10px;
@@ -7,7 +7,7 @@
   margin-right: auto;
 }
 
-.simple-slider {
+.slider {
   margin-top: 30vh;
 
   .slick-prev {
