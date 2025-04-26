@@ -14,8 +14,12 @@ export default function SimpleSlider() {
     slidesToScroll: 1,
   };
   return (
-    <Slider {...settings}>
-      <div>
+    <div className='simple'>
+    <Slider
+      className="simple-slider"
+      {...settings}
+    >
+      <div className='hoge-hoge'>
         <h3>1</h3>
       </div>
       <div>
@@ -34,5 +38,6 @@ export default function SimpleSlider() {
         <h3>6</h3>
       </div>
     </Slider>
+    </div>
   );
 }
