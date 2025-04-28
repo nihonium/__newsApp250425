@@ -42,19 +42,31 @@ function CustomSlides() {
   );
 }
 
-var url = 'https://newsapi.org/v2/everything?' +
-          'q=Apple&' +
-          'from=2025-04-26&' +
-          'sortBy=popularity&' +
-          'pageSize=6&' +
-          'apiKey=f4ce278dcf6d4c3dbe301e7599c169ae';
+// var url = 'https://newsapi.org/v2/top-headlines?' +
+//           'category=business&' +
+//           'pageSize=6&' +
+//           `apiKey=f4ce278dcf6d4c3dbe301e7599c169ae&` +
+//           'country=ja';
 
-var req = new Request(url);
+// var req = new Request(url);
 
-fetch(req)
-    .then(function(response) {
-        console.log(response.json());
+// fetch(req)
+//     .then(function(response) {
+//         console.log(response.json());
+//     })
+
+const [news, setNews] = useState(ini);
+useEffect(() => {
+  const url = 'http://newsapi.org/v2/top-headlines?' +
+    'country=ja&' +
+    'pageSize=6&' +
+    `apiKey=f4ce278dcf6d4c3dbe301e7599c169ae`;
+  let req = new Request(url);
+  fetch(req)
+    .then(async (response) => {
+      setNews(await response.json());
     })
+},[])
 
 export default CustomSlides;
 
