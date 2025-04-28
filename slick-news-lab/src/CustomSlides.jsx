@@ -2,6 +2,7 @@ import { useState } from 'react'
 import './CustomSlides.css'
 import React from "react"
 import Slider from "react-slick"
+import NewsList from "./NewsAPI"
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
 
@@ -12,7 +13,8 @@ function CustomSlide(props) {
       className='slider-items'
       {...otherProps}
     >
-      <h3>{index}</h3>
+      <p>{index}</p>
+      <NewsList />
     </div>
   );
 }
@@ -41,32 +43,6 @@ function CustomSlides() {
     </div>
   );
 }
-
-// var url = 'https://newsapi.org/v2/top-headlines?' +
-//           'category=business&' +
-//           'pageSize=6&' +
-//           `apiKey=f4ce278dcf6d4c3dbe301e7599c169ae&` +
-//           'country=ja';
-
-// var req = new Request(url);
-
-// fetch(req)
-//     .then(function(response) {
-//         console.log(response.json());
-//     })
-
-const [news, setNews] = useState(ini);
-useEffect(() => {
-  const url = 'http://newsapi.org/v2/top-headlines?' +
-    'country=ja&' +
-    'pageSize=6&' +
-    `apiKey=f4ce278dcf6d4c3dbe301e7599c169ae`;
-  let req = new Request(url);
-  fetch(req)
-    .then(async (response) => {
-      setNews(await response.json());
-    })
-},[])
 
 export default CustomSlides;
 

@@ -1,20 +1,33 @@
-const NewsAPI = require('newsapi');
-const newsapi = new NewsAPI('f4ce278dcf6d4c3dbe301e7599c169ae');
+import { useState, useEffect } from 'react';
 
-// To query /v2/top-headlines
-// All options passed to topHeadlines are optional, but you need to include at least one of them
-newsapi.v2.topHeadlines({
-  sources: 'bbc-news,the-verge',
-  q: 'bitcoin',
-  category: 'business',
-  language: 'en',
-  country: 'us'
-}).then(response => {
-  console.log(response);
-  /*
-    {
-      status: "ok",
-      articles: [...]
-    }
-  */
-});
+export default function NewsList() {
+  const [news, setNews] = useState({ articles: [] });
+
+  useEffect(() => {
+    const url = 'http://newsapi.org/v2/top-headlines?' +
+      'country=jp&' +
+      'pageSize=6&' +
+      'apiKey=f4ce278dcf6d4c3dbe301e7599c169ae';
+    let req = new Request(url);
+    fetch(req)
+      .then(async (response) => {
+        setNews(await response.json());
+      });
+  }, []);
+
+  return (
+    <div>
+      <h1>最新ニュース</h1>
+      <ul>
+        {news.articles.map((article, index) => (
+          <li key={index}>
+            <h2>{article.title}</h2>
+            <p>{article.description}</p>
+            {article.urlToImage && <img src={article.urlToImage} alt={article.title} width="200" />}
+            <a href={article.url} target="_blank" rel="noopener noreferrer">続きを読む</a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
