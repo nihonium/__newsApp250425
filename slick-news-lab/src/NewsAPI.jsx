@@ -4,22 +4,30 @@ export default function NewsList() {
   const [news, setNews] = useState({ articles: [] });
 
   useEffect(() => {
-    const url = 'http://newsapi.org/v2/top-headlines?' +
-      'country=jp&' +
-      'pageSize=6&' +
-      'apiKey=f4ce278dcf6d4c3dbe301e7599c169ae';
+    const apiKey = 'f4ce278dcf6d4c3dbe301e7599c169ae';
+    const url = `http://newsapi.org/v2/top-headlines?country=jp&pageSize=6&apiKey=${apiKey}`;
     let req = new Request(url);
     fetch(req)
       .then(async (response) => {
-        setNews(await response.json());
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        console.log(data);
+        setNews(data.articles ? data : { articles: [] });
+      })
+      .catch(error => {
+        console.error("Fetching news failed:", error);
       });
   }, []);
+
+  console.log('NewsListコンポーネントがレンダリングされました');
 
   return (
     <div>
       <h1>最新ニュース</h1>
       <ul>
-        {news.articles.map((article, index) => (
+        {news.articles && news.articles.map((article, index) => (
           <li key={index}>
             <h2>{article.title}</h2>
             <p>{article.description}</p>
